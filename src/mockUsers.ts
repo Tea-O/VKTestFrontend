@@ -10,7 +10,7 @@ export const mockUsers = [
   },
   {
     id: 2,
-    firstName: "Terry",
+    firstName: "Gerry",
     lastName: "Medhurst",
     image: "https://robohash.org/Terry.png?set=set4",
     address: {

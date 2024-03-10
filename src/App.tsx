@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { SearchForm } from "./components/SearchFrom/SearchForm";
-import { SearchContext } from "./components/SearchResults/SearchContext";
+import {SearchContext, SearchContextType} from "./components/SearchResults/SearchContext.ts";
 import { SearchResults } from "./components/SearchResults/SearchResults";
-import { mockUsers } from "./mockUsers";
 
 export default function App() {
-  const [users] = useState(mockUsers);
+    const [data, setInput] = useState<SearchContextType["data"]>({users: []});
 
-  return (
-    <SearchContext.Provider value={{ users }}>
-      <SearchForm />
-      <SearchResults />
-    </SearchContext.Provider>
-  );
+
+    return (
+        <SearchContext.Provider value={{ data, setInput}}>
+            <SearchForm />
+            <SearchResults />
+        </SearchContext.Provider>
+    );
 }

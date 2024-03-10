@@ -1,6 +1,8 @@
 import "./style.css";
+import React from "react";
+import {User} from "../SearchResults/SearchContext.ts";
 
-export function UserCard(props) {
+export const UserCard: React.FC<User> = (props : User) => {
   return (
     <div className="userCard">
       <img className="userPic" src={props.image} />
