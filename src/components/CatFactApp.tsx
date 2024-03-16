@@ -1,32 +1,62 @@
-import { useState, useEffect, useRef } from 'react';
+import {useState, useEffect, useRef} from 'react';
+import '@vkontakte/vkui/dist/vkui.css';
+import {Button, FormItem, Group, Header, Input} from "@vkontakte/vkui";
+import {useQuery} from "@tanstack/react-query";
+
 
 function CatFactComponent() {
-    const [fact, setFact] = useState('');
-    const inputRef = useRef<HTMLInputElement>(null); // Указываем тип ссылки
+
+    const [fetchOnButtonClick, setFetchOnButtonClick] = useState(false);
+
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const fetchFact = async () => {
-        const response = await fetch('https://catfact.ninja/fact');
-        const data = await response.json();
-        setFact(data.fact);
+        try {
+            const response = await fetch('https://catfact.ninja/fact');
+            const data = await response.json();
+            return data.fact;
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    const {data, refetch} = useQuery({
+        queryKey: ['getCatFact'],
+        queryFn: fetchFact,
+        enabled: fetchOnButtonClick
+
+    })
+
+    const handleClick = () => {
+        setFetchOnButtonClick(true);
+        refetch();
     };
 
     useEffect(() => {
-        if (fact) {
-            const firstWordEndIndex = fact.indexOf(' ');
-            if(inputRef.current !== null) {
+        if (data) {
+            const firstWordEndIndex = data.indexOf(' ');
+            if (inputRef.current !== null) {
                 inputRef.current.focus();
                 inputRef.current.setSelectionRange(firstWordEndIndex, firstWordEndIndex);
-                inputRef.current.size = fact.length;
+                inputRef.current.size = data.length;
             }
         }
-    }, [fact]);
+    }, [data]);
 
     return (
-        <div>
-            <button onClick={fetchFact}>Get Cat Fact</button>
-            <input type="text" value={fact} ref={inputRef}  />
-
-        </div>
+        <Group>
+            <form onSubmit={(event) => {
+                event.preventDefault()
+            }}>
+                <Header>{'Cat Fact Task'}</Header>
+                <FormItem>
+                    <Input type={"text"} value={data} getRef={inputRef}/>
+                </FormItem>
+                <FormItem>
+                    <Button onClick={handleClick} size="l">Get Cat Fact</Button>
+                </FormItem>
+            </form>
+        </Group>
     );
 }
 
