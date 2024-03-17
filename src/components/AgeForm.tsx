@@ -68,7 +68,7 @@ function AgeForm() {
             <Header>{'Age Form Task'}</Header>
             <FormItem bottom={returnAge(data, isValidAge)} status={isValidAge ? 'valid' : 'error'}>
                 <Input type="text" value={name} onChange={(e) => setName(e.target.value)}
-                       placeholder={'Введите имя на латинеце'}></Input>
+                       placeholder={'Введите имя на латинице'}></Input>
             </FormItem>
             <FormItem>
                 <Button onClick={handleSubmit} size="l">Get Age</Button>
