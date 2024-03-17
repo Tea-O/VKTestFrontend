@@ -16,6 +16,7 @@ npm install
 npm run dev
 ```
 ## Для запуска проекта по deploy перейдите в ветку deploy.
+для deploy используется node v16.20.2 npm 8.19.4
 Для деплоя также нужно добавить в package.json
 ```json
 "@vkontakte/vk-bridge": "^2.14.1",
