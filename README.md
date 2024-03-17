@@ -17,44 +17,8 @@ npm run dev
 ```
 ## Для запуска проекта по deploy перейдите в ветку deploy.
 для deploy используется node v16.20.2 npm 8.19.4
-Для деплоя также нужно добавить в package.json
-```json
-"@vkontakte/vk-bridge": "^2.14.1",
-"@vkontakte/vk-bridge-react": "^1.0.1",
-"@vkontakte/vk-mini-apps-router": "^1.4.3",
-"@vkontakte/vk-miniapps-deploy": "^0.1.6",
-"@vkontakte/vk-tunnel": "^0.1.4",
-```
-И изменить в vk-hosting-config.json на ваш id приложения
-также нужно изменить vite.configs.ts (отличающийся от запуска по локальной сети)
-```ts
-
-function handleModuleDirectivesPlugin() {
-  return {
-    name: 'handle-module-directives-plugin',
-    transform(code: string, id: string) {
-      if (id.includes('@vkontakte/icons')) {
-        code = code.replace(/"use-client";?/g, '');
-      }
-      return { code };
-    },
-  };
-}
-export default defineConfig({
-  base: './',
-
-  plugins: [
-    react(),
-    handleModuleDirectivesPlugin(),
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
-  ],
-
-  build: {
-    outDir: 'build',
-  },
-});
+```bash
+npm run deploy
 ```
 ## Что требовалось по заданию 
 ### Приложение должно состоять из двух частей:
