@@ -8,6 +8,8 @@ function CatFactComponent() {
 
     const [fetchOnButtonClick, setFetchOnButtonClick] = useState(false);
 
+
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const fetchFact = async () => {
@@ -20,7 +22,7 @@ function CatFactComponent() {
         }
     };
 
-    const {data, refetch} = useQuery({
+    const {data = '', refetch} = useQuery({
         queryKey: ['getCatFact'],
         queryFn: fetchFact,
         enabled: fetchOnButtonClick
@@ -34,6 +36,7 @@ function CatFactComponent() {
 
     useEffect(() => {
         if (data) {
+
             const firstWordEndIndex = data.indexOf(' ');
             if (inputRef.current !== null) {
                 inputRef.current.focus();
@@ -50,7 +53,8 @@ function CatFactComponent() {
             }}>
                 <Header>{'Cat Fact Task'}</Header>
                 <FormItem>
-                    <Input type={"text"} value={data} getRef={inputRef}/>
+                    <Input type={"text"} value={data} getRef={inputRef} onChange={event => event.target.value}
+                           placeholder={'Нажмите на кнопку, чтобы получить факт о котиках'}/>
                 </FormItem>
                 <FormItem>
                     <Button onClick={handleClick} size="l">Get Cat Fact</Button>

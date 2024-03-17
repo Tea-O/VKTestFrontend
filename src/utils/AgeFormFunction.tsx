@@ -3,5 +3,14 @@ function isValid(value: string) {
     return regex.test(value);
 }
 
+function returnAge(age: string | null, isValidAge: boolean) {
 
-export {isValid}
+    if (age && isValidAge) {
+        return `Estimated age: ${age}`;
+    } else if (isValidAge) {
+        return "";
+    }
+    return "Имя должно состоятоять только из букв";
+}
+
+export {isValid, returnAge}
